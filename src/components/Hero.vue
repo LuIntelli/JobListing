@@ -10,7 +10,7 @@
             {{  title }}
           </h1>
           <p class="my-4 text-xl text-white">
-            Find the Vue job that fits your skills and needs
+            {{ subTitle }}
           </p>
         </div>
       </div>
@@ -30,7 +30,7 @@
         },
         subTitle: {
             type:String,
-            default: "Find a vue job of your choice",
+            default: "Find the Vue job that fits your skills and needs",
             required: true
         }
     })
