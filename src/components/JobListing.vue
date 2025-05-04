@@ -7,7 +7,12 @@
       </div>
 
       <div class="mb-5">
-       {{ job.description }}
+       {{ trucatedDescription }}
+       <br>
+       <br>
+       <button class="text-green-500 hover:text-green-600 mb-5" @click="toggleFullDescription">
+        {{ showfullDescription ? "Less" : "More" }}
+       </button>
       </div>
 
       <h3 class="text-green-500 mb-2">{{ job.salary }} / Year</h3>
@@ -16,27 +21,41 @@
 
       <div class="flex flex-col lg:flex-row justify-between mb-4">
         <div class="text-orange-700 mb-3">
-          <i class="fa-solid fa-location-dot text-lg"></i>
+          <i class="pi pi-map-marker text-orange-500 text-lg"></i>
           {{ job.location }}
         </div>
-        <az
+        <a
           :href="'/job/'+ job.id"
           class="h-[36px] bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center text-sm"
         >
           Read More
-        </az>
+        </a>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-    import { defineProps } from 'vue';
+    import { defineProps, ref, computed } from 'vue';
 
-    defineProps({
+    const toggleFullDescription = () => {
+        showfullDescription.value = !showfullDescription.value;
+    }
+
+    const props = defineProps({
         job: {
             type:Array,
             required: true
         }
+    })
+
+    const showfullDescription = ref(false);
+
+    const trucatedDescription = computed(() => {
+        let description = props.job.description;
+        if(!showfullDescription.value) {
+            description = description.substring(0, 90) + "...";
+        }
+        return description;
     })
 </script>

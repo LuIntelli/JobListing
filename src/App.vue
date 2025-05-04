@@ -2,7 +2,7 @@
    <Navbar />
    <Hero title="Become a Vuejs Dev" subTitle="Find the Vue job that fits your skills and needs..." />
    <HomeCards />
-   <JobListings />
+   <JobListings :limit="3" :showButton="true" />
 </template>
 
 <script setup>
