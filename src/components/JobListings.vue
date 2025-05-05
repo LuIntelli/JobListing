@@ -1,12 +1,18 @@
 <script setup>
 // import JobData from "@/Jobs.json";
-import { ref, defineProps, onMounted } from "vue";
+import { ref, defineProps, onMounted, reactive} from "vue";
 import JobListing from "@/components/JobListing.vue"
-import { RouterLink } from "vue-router";
-import {}
+import { RouterLink } from "vue-router"; 
+import axios from "axios";
 
 
-const jobs = ref([]);
+// const jobs = ref([]);
+// Ref is similar to reactive. While reactive accepts only object, ref accepts both objects and primitive data type. So you kind of look at reactive as a collection of refs, as reactive uses ref under the hood. It's like putting a “middleman” between you and the real object, who watches or changes how things work, not just for a single data, but as many data as you want, I think.
+
+const state = reactive({
+    jobs:[],
+    isLoading: true
+})
 
 defineProps({
     limit:Number,
@@ -18,6 +24,17 @@ defineProps({
 
 
 // Make http request
+onMounted( async () => {
+    try {
+        const response = await axios.get("http://localhost:5000/jobs");
+        state.jobs = response.data;
+    } catch (error) {
+        console.log("Error fetching data", error);
+    } finally {
+        // Runs whatever is inside whether the try or catch block ran
+        state.isLoading = false;
+    }
+})
 console.log(jobs.value);
 </script>
 
