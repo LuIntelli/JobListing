@@ -1,11 +1,12 @@
 <script setup>
-import JobData from "@/Jobs.json";
-import { ref, defineProps } from "vue";
+// import JobData from "@/Jobs.json";
+import { ref, defineProps, onMounted } from "vue";
 import JobListing from "@/components/JobListing.vue"
 import { RouterLink } from "vue-router";
+import {}
 
 
-const jobs = ref(JobData);
+const jobs = ref([]);
 
 defineProps({
     limit:Number,
@@ -15,6 +16,8 @@ defineProps({
     },
 })
 
+
+// Make http request
 console.log(jobs.value);
 </script>
 
